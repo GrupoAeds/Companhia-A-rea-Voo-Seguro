@@ -6,7 +6,7 @@
 using namespace std;
 
 class Pessoa {
-    private:
+    protected:
         string nome, telefone;
         int codigo;
         static int contadorCodigo;
@@ -26,7 +26,7 @@ class Pessoa {
             }
         }
 
-        string getTelefone() {
+        string getTelefone() const{
             return telefone;
         }
 
@@ -34,11 +34,11 @@ class Pessoa {
             this->nome = nome;
         }
 
-        string getNome() {
+        string getNome() const{
             return nome;
         }
 
-        int getCodigo() {
+        int getCodigo() const{
             return codigo;
         }
 
@@ -63,6 +63,7 @@ class Passageiro : public Pessoa {
         bool neymar;
         int pontosFidelidade;
         string endereco;
+        vector<Reserva> reservas;
 
     public:
         Passageiro(string nome, string telefone, string endereco, bool neymar, int pontosFidelidade)
@@ -76,7 +77,7 @@ class Passageiro : public Pessoa {
             this->neymar = neymar;
         }
 
-        bool getNeymar() {
+        bool getNeymar() const{
             return neymar;
         }
 
@@ -84,7 +85,7 @@ class Passageiro : public Pessoa {
             this->pontosFidelidade = pontosFidelidade;
         }
 
-        int getPontosFidelidade() {
+        int getPontosFidelidade() const{
             return pontosFidelidade;
         }
 
@@ -92,17 +93,20 @@ class Passageiro : public Pessoa {
             this->endereco = endereco;
         }
 
-        string getEndereco() {
+        string getEndereco() const{
             return endereco;
         }
 
+        vector<Reserva> getReservas() const{
+            return reservas;
+        }
         void adicionarPontos(int pontosAdicionados) {
             if (neymar) {
                 pontosFidelidade += pontosAdicionados;
             }
         }
 
-        void mostrarPontos() {
+        void mostrarPontos() const{
             cout << "Pontos de fidelidade: " << pontosFidelidade << endl;
         }
 
@@ -370,14 +374,109 @@ public:
         cout << "\n=== Assentos do Voo ===\n";
         for (const auto& assento : assentos) {
             assento.exibirDados();
-        }
+        } 
     }
 
     vector<Assento> getAssentos() const {
         return assentos;
     }
 };
+    
+class Reserva{
+    private:
+        int numero_assento, codigo_voo, codigo_passageiro;
+        
+    public:
+        void setNumero_assento(int numero_assento) {
+            this->numero_assento = numero_assento;
+        }
+        int getNumero_assento() const{
+            return numero_assento;
+        }
 
+        void setCodigo_voo(int codigo_voo){
+            this->codigo_voo = codigo_voo;
+        }
+        int getCodigo_voo() const{
+            return codigo_voo;
+        }
+
+        void setCodigo_passageiro(int codigo_passageiro){
+            this->codigo_passageiro = codigo_passageiro; 
+        }
+        int getCodigo_passageiro() const{
+            return codigo_passageiro;
+        }
+
+        static void pesquisarPassageiroPorCodigo(int codigo, const vector<Passageiro>& passageiros) {
+            for (const auto& passageiro : passageiros) {
+                if (passageiro.getCodigo() == codigo) {
+                    cout << "Passageiro encontrado:\n";
+                     passageiro.imprimirInformacoes();
+                    return;
+                }
+            }
+             cout << "Passageiro não encontrado.\n";
+        }
+
+        static void pesquisarTripulantePorCodigo(int codigo, const vector<Tripulante>& tripulantes) {
+            for (const auto& tripulante : tripulantes) {
+                if (tripulante.getCodigo() == codigo) {
+                    cout << "Tripulante encontrado:\n";
+                    tripulante.imprimirInformacoes();
+                    return; 
+                }
+            }
+            cout << "Tripulante não encontrado.\n";
+        }
+
+        static void pesquisarVooPorCodigo(int codigo, const vector<Voo>& voos) {
+            for (const auto& voo : voos) {
+                if (voo.getCodigo_voo() == codigo) {
+                    cout << "Voo encontrado:\n";
+                    voo.exibirDados();
+                    return; 
+                }
+            }
+            cout << "Voo não encontrado.\n";
+        }
+
+        void imprimirReserva(const Passageiro& passageiro, const Voo& voo) const {
+                cout << "\n=== Reserva ===\n";
+                cout << "Nome do Passageiro: " << passageiro.getNome() << " (Código: " << passageiro.getCodigo() << ")\n";
+                cout << "Origem: " << voo.getOrigem() << "\n";
+                cout << "Destino: " << voo.getDestino() << "\n";
+                cout << "Data: " << voo.getData() << "\n";
+                cout << "Hora: " << voo.getHora() << "\n";
+                cout << "Número do Assento: " << numero_assento << "\n";
+                cout << "Tarifa: R$ " << voo.getTarifa() << endl;
+        }
+
+            void exibirReservasPassageiro(Passageiro passageiro, const vector<Voo>& voos) {
+                if (passageiro.getReservas().empty()) {
+                    cout << "O passageiro não fez nenhuma reserva" << endl;
+                } else {
+                    for (int i = 0; i < passageiro.getReservas().size(); i++) {
+                        const Reserva& reserva = passageiro.getReservas()[i];
+
+                        bool vooEncontrado = false;
+                        for (const auto& voo : voos) {
+                            if (reserva.getCodigo_voo() == voo.getCodigo_voo()) {
+                                vooEncontrado = true;
+
+                                imprimirReserva(passageiro, voo);
+                                break;
+                            }
+                        }
+
+                    }
+                }
+            }
+
+
+
+
+};
 // Inicializando membros estáticos
 set<int> Voo::codigos_voo_usados;
 set<int> Voo::codigos_aviao_usados;
