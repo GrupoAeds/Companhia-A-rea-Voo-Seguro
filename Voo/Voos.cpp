@@ -178,6 +178,165 @@ class Tripulante : public Pessoa {
         }
 };
 
+// Agora vamos testar os métodos da classe "Pessoa".
+
+//Classe "Pessoa"
+
+
+// Os casos de teste para este método são: 
+
+// O código deve ser único e positivo.
+// O nome não pode estar vazio ou nulo.
+// O telefone deve seguir um formato válido ( (XX) XXXXX-XXXX).
+// O endereço não pode estar vazio.
+
+//Código para teste:
+
+// int main(){
+
+    // Pessoa pessoa("João", "(31)998861895"); Para este caso, o código roda ok.
+    // Pessoa pessoa("João", "(31998861895"); Para este caso também, pois o código pede que seja inserido o número de acordo com o formato cadastrado ( (XX) XXXXX-XXXX).
+    // Pessoa pessoa("João", "31998861895"); //Se eu não insiro os "()", o programa me retorna o erro de formatação (OK), mas, se eu insiro 2 caracteres no lugar dos '()', exemplo 00, o programa não dá erro (Defeito).
+    // Pessoa pessoa("", "(31)998861895"); //Neste código há um erro: Parametro “nome” está nulo e o código rodou.
+    // Pessoa pessoa("(31)998861895"); Este código não roda sem o parametro “nome” estar pelo menos nulo (OK);
+
+// }
+
+// Método "CadastrarNovaPessoa": e imprimirInformações
+
+//int main(){
+
+    //Pessoa pessoa1 = pessoa1.cadastrarNovaPessoa();
+    //pessoa1.imprimirInformacoes();
+
+    //Pessoa pessoa2 = pessoa2.cadastrarNovaPessoa();
+    //pessoa2.imprimirInformacoes();
+
+    //Pessoa pessoa3 = pessoa3.cadastrarNovaPessoa();
+    //pessoa3.imprimirInformacoes();
+
+    // Para os códigos acima: 
+    // Para começar a imprimir as orientações do cout, é necessário receber um valor antes (Enter, caracter...). (Defeito);
+    // Os códigos criado estão vindo com o código diferente. Não há duplicação. (OK)
+//}
+
+// Método imprimirInformacoes:
+
+//int main(){
+
+   //Pessoa pessoa("", "(31)998861895");  
+   //pessoa.imprimirInformacoes(); - Este método aceita o parâmetro "Nome" nulo e portanto imprime ele (Defeito) e os outros; 
+                                        
+
+  // Pessoa pessoa("","(31998861895");
+  // Pessoa pessoa();
+  // pessoa.imprimirInformacoes();        | O método roda sem o parâmetro "Telefone" estar no formato correto, mas imprime mensagem de erro de formatação(OK).
+
+//}                                       | E também não aceita o objeto com parâmetros vazios.(OK);
+//                                      | O método não mensagem de erro se o parâmetro "Nome" estiver nulo e o de "Telefone" estiver OK (Defeito - No parâmetro, no caso).
+
+
+// Agora vamos testar os métodos da classe "Passageiro".
+
+ //   int main(){
+
+    //Passageiro passageiro("", "1119123456789","", -3,-15);
+    //passageiro.imprimirInformacoes();
+    
+    // Para o código acima:
+
+    // a classe herda os atributos da classe "Pessoa" e só adiciona outros atributos específicos, como "Endereço", "Plano de Fidelidade" e "Pontos de fidelidade". (OK)
+    // O programa roda sem problema. Ele aceita números negativos (Defeito).
+    // Com o parâmetro "Telefone "vazio, o programa dá pau, mas com ele nulo, o teste roda sem problema. (Defeito).
+    // E o programa continua rodando sem erro com o parâmetro "Nome" nulo.(Defeito/Avaliar).
+//}
+
+
+// Metodo adicionarPontos
+
+//int main(){
+
+     // Passageiro passageiro("", "1119123456789","", -3,-15);
+     // passageiro.adicionarPontos("1"); //Para este método, o código não roda com caracteres especiais ou letras, apenas números (OK).
+
+//}
+
+
+// Método mostrarPontos
+
+//int main(){
+
+    // Passageiro passageiro("", "1119123456789","", 0, 3);
+    // passageiro.mostrarPontos();
+    
+    //Para este método:
+    
+    // O código mostra os pontos e não roda com caracteres especiais ou letras, não aceita parâmetro vazio ou char, apenas números. (OK);
+    // O código recebe o valor de 3 pontos de fidelidade e os imprime, mesmo que o plano receba 0.  (Defeito).
+
+//}
+
+
+// Método cadastrarNovaPessoa e imprimirInformacoes()
+
+//int main(){
+
+    //Passageiro passageiro1 = passageiro1.cadastrarNovaPessoa();
+    //passageiro1.imprimirInformacoes();
+
+    //No código acima:
+    
+    // Ao digitar um valor diferente de 0 ou 1 (caracter, numero negativo..), o programa para de aceitar entradas e finaliza, imprimindo todo os outros textos;
+    // Ao digitar o valor 0 para o plano de fidelidade, o programa ainda pede os pontos de fidelidade. O mesmo para os demais objetos criados (Defeito).
+    // O código gera números de códigos diferentes para cada passageiro. (OK).
+
+    //Passageiro passageiro2 = passageiro2.cadastrarNovaPessoa(); ""
+    //passageiro2.imprimirInformacoes();  // Método OK, imprime tudo. ""
+
+    //Passageiro passageiro3 = passageiro3.cadastrarNovaPessoa(); ""
+    //passageiro3.imprimirInformacoes();  // Método OK, imprime tudo. ""
+    
+//}
+
+
+// Agora vamos testar os métodos da classe "Tripulante".
+
+//int main(){
+
+    // Tripulante tripulante("Diogo","3100123456789", "Garçonete"); Para este caso, o código não aceitou o cargo "Garçonete". (OK)
+    // Tripulante tripulante("Diogo","3100123456789", "Piloto"); Para este caso o código roda OK, e para o cargo "piloto" também. (OK)
+    // Tripulante tripulante("Diogo","3100123456789", "copiloto"); Para este caso o código roda OK, e para o cargo "Copiloto" também. (OK)
+    // Tripulante tripulante("Diogo","3100123456789", "comissario"); Para este caso o código roda OK, e para o cargo "Comissario" também.(ok)
+    // Tripulante tripulante("Diogo","3100123456789", "COMISSARIO"); Para este caso, o código não aceita todas as maiusculas, e quando se coloca outra letra maiuscula além do "C", o código não reconhece o cargo. Ex: COmissario. E assim para todos os demais cargos também. (Defeito)
+    // Tripulante tripulante("Diogo","3100123456789", ""); Para este caso, o código dá erro, pois o cargo está nulo (OK).
+    // Tripulante tripulante("Diogo","3100123456789");Para este caso, o código dá erro, pois o parâmetro "Cargo" está vazio (OK).
+    // Tripulante tripulante("Diogo","3100123456789", "Comissário"); Para este caso, o parâmetro "Cargo" não aceita o caracter "´" na letra "a", constando que o cargo não está correto. (Defeito)
+//}
+
+// Método cadastrarNovaPessoa e imprimirInformacoes()
+
+//int main(){
+
+    //Tripulante tripulante1 = tripulante1.cadastrarNovaPessoa();
+    //tripulante1.imprimirInformacoes();
+
+    //Tripulante tripulante2 = tripulante2.cadastrarNovaPessoa();
+    //tripulante2.imprimirInformacoes();
+
+    //Tripulante tripulante3 = tripulante3.cadastrarNovaPessoa();
+    //tripulante3.imprimirInformacoes();
+
+    // Para o método cadastrarNovaPessoa :
+
+    // Para começar a imprimir as orientações do cout, é necessário receber um valor antes (Enter, caracter...). (Defeito);
+    // Mesmo que eu insira o número de telefone inválido e/ou cargo inválido, ele apenas informa no final do processo (Defeito).
+
+    // Para o método imprimirInformacoes:
+
+    // O código está imprimindo as informações corretamente e os códigos criados estão vindo com códigos diferentes. Não há duplicação. (OK);
+
+//}
+
 class Voo {
 private:
     int codigo_voo;
