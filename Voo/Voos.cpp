@@ -337,6 +337,72 @@ class Tripulante : public Pessoa {
 
 //}
 
+
+
+#include <iostream>
+#include <vector>
+#include <string>
+using namespace std;
+
+class Assento {
+private:
+    vector<pair<string, string>> assentos; // Armazena o número do assento e o código do voo
+
+public:
+    // Construtor inicializado com o array assentos
+    Assento() : assentos({
+        {"1A", "Voo101"},
+        {"1B", "Voo101"},
+        {"2A", "Voo102"},
+        {"2B", "Voo102"},
+        {"3A", "Voo103"}
+    }) {
+    }
+
+    // Método para cadastrar assentos
+    void cadastrarAssento() {
+        const int PASSAGEIROS = 5;  // esperando a definiçaõ do numero de passageiros
+
+        for (int i = 0; i < PASSAGEIROS; i++) {
+            string numAssento, codigoVoo;
+
+            cout << "Insira o código do voo: ";
+            cin >> codigoVoo;
+            cout << "Insira o número do assento: ";
+            cin >> numAssento;
+
+            if (condicaoAssento(numAssento)) {
+                cout << "Assento já ocupado!\n"; // Assento ocupado
+            } else {
+                assentos.emplace_back(numAssento, codigoVoo); // Adiciona o NUmAssento e CodigoVoo ao vetor
+                cout << "Assento cadastrado com sucesso!\n";
+            }
+        }
+    }
+
+    // Verifica se o assento já está ocupado
+    bool condicaoAssento(const string& assento) const {
+        for (const auto& a : assentos) {
+            if (a.first == assento) {
+                return true; // Assento ocupado
+            }
+        }
+        return false;
+    }
+
+    // Exibe os assentos cadastrados
+    void mostrarAssentos() const {
+        if (assentos.empty()) {
+            cout << "Nenhum assento cadastrado.\n";
+        } else {
+            cout << "Lista de assentos cadastrados:\n";
+            for (const auto& a : assentos) {
+                cout << "- Assento: " << a.first << ", Código do Voo: " << a.second << "\n";
+            }
+        }
+    }
+};
+
 class Voo {
 private:
     int codigo_voo;
@@ -352,7 +418,7 @@ private:
     float tarifa;
 
     vector<Assento> assentos; // Associação com a classe Assento
-    static set<int> codigos_voo_usados;
+    static set<int> codigos_voo_usados;ncionalidades
     static set<int> codigos_aviao_usados;
     static set<int> codigos_piloto_usados;
     static set<int> codigos_comissario_usados;
@@ -558,7 +624,7 @@ class Reserva{
         }
         int getCodigo_voo() const{
             return codigo_voo;
-        }
+        }ncionalidades
 
         void setCodigo_passageiro(int codigo_passageiro){
             this->codigo_passageiro = codigo_passageiro; 
